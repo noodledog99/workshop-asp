@@ -24,7 +24,6 @@ namespace workshop_asp.Controllers
         public ActionResult Index()
         {
             var product = db.Products.ToList().Any() ? db.Products.ToList() : new List<Product>();
-            ViewBag.CountCart = cart.CountItemCart();
             return View(product);
         }
 

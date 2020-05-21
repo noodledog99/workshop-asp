@@ -61,7 +61,16 @@
             width: 100%;
             height: 300px;
             object-fit: cover;
+            position: relative;
         }
+
+    .soldout-msg {
+        position: absolute;
+        left: 15px;
+        padding: 8px 23px;
+        color: white;
+        background: black;
+    }
 
     .product-card {
         max-width: 300px;
@@ -119,6 +128,10 @@
                             <div class="card-header">
                                 <div class="product-item-img">
                                     <img src="@item.ImagePath" />
+                                    @if (item.UnitsInStock == 0)
+                                    {
+                                        <span class="soldout-msg">Sold Out</span>
+                                    }
                                 </div>
                             </div>
                             <div class="card-center">
@@ -126,8 +139,9 @@
                                 <p>฿@string.Format("{0:n}", @item.UnitPrice)</p>
                             </div>
                             <div class="card-bottom">
-                                @Html.ActionLink("Buy", "ProductView", "Products", new { id = item.ProductId },
-new { @class = "btn btn-buy" })
+                                @Html.ActionLink("Buy", "ProductView", "Products",
+                               new { id = item.ProductId },
+                               new { @class = "btn btn-buy" })
                             </div>
                         </div>
                     </div>

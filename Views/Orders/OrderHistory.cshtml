@@ -3,6 +3,12 @@
     ViewBag.Title = "OrderHistory";
     var row = 0;
 }
+<style>
+    .text-norder {
+        font-size: 28px;
+        margin-top: 100px;
+    }
+</style>
 
 <div class="container">
     <h2>Order History</h2>
@@ -20,16 +26,25 @@
         <tbody>
             @foreach (var order in Model)
             {
-            <tr>
-                <td>@(++row)</td>
-                <td>@order.OrderId</td>
-                <td>@order.OrderDate</td>
-                <td>@order.Total</td>
-                <td>@order.OrderStatus</td>
-                <td></td>
-            </tr>
+                <tr>
+                    <td>@(++row)</td>
+                    <td>@order.OrderId</td>
+                    <td>@order.OrderDate</td>
+                    <td>@order.Total</td>
+                    <td>@order.OrderStatus</td>
+                    <td>
+
+                        <a class="btn btn-default" href="@Url.Action("OrderDetailPrview","OrderDetails",new { id = order.OrderId })">Detail</a>
+                        <button class="btn btn-success">Accept</button>
+                    </td>
+                </tr>
             }
+
         </tbody>
     </table>
+    @if (!Model.Any())
+    {
+        <p class="text-center text-norder">You haven't placed any orders yet.</p>
+    }
 </div>
 

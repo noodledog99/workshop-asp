@@ -25,9 +25,11 @@
                         </div>
                     </a>
                 </li>
+                <li>@Html.ActionLink("Order History", "OrderHistory", "Orders")</li>
                 <li>
                     @Html.ActionLink("Hello " + ((ClaimsIdentity)User.Identity).FindFirst("FullName").Value, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
                 </li>
+
                 <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
             </ul>
         }

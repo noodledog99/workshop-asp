@@ -54,6 +54,21 @@
     h1.title {
         font-size: 2.2em;
     }
+
+    #error-msg {
+        display: none;
+        color: red;
+    }
+
+    #soldout-msg {
+        text-align: center;
+        font-size: 22px;
+        font-weight: bold;
+        background: black;
+        color: white;
+        padding: 17px 10px;
+        display: none;
+    }
 </style>
 
 <div class="container">
@@ -82,17 +97,42 @@
                     <input type="hidden" name="UnitPrice" value="@Model.UnitPrice" class="form-control" />
                     <p class="product_amount">Product in Stock: @Model.UnitsInStock</p>
                     <div class="form-group">
-                        <input type="number" name="Qty" class="form-control" />
+                        <input id="Qty" type="number" name="Qty" class="form-control" />
                     </div>
+                    <span id="error-msg">ไม่สามารถออร์เดอร์สินค้าได้เนื่องจากกรอกจำนวณเกิน</span>
+                    <p id="soldout-msg">Sold Out</p>
                 </div>
                 <div class="item-detail">
-                    <button class="btn-add btn-block" type="submit">ADD TO CART</button>
+                    <button id="btnAdd" class="btn-add btn-block" type="submit">ADD TO CART</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-<p>
-    @*@Html.ActionLink("Edit", "Edit", new { id = Model.ProductId }) |*@
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+@section Scripts{
+    <script type="text/javascript">
+        IsOutOffProduct();
+        function IsOutOffProduct() {
+            if (@Model.UnitsInStock == 0) {
+                $('#soldout-msg').css({ "display": "block" });
+                $('#btnAdd').css({ "display": "none" });
+                $('#Qty').css({ "display": "none" });
+            }
+        }
+
+        $('#Qty').bind('keyup mouseup', function (e) {
+            if (e.target.value > @Model.UnitsInStock) {
+                $('#btnAdd').attr("disabled", true);
+                $('.btn-add').css({ "background": "#DDDDDD" });
+                $('#error-msg').css({ "display": "block" });
+            }
+            else {
+                $('#btnAdd').attr("disabled", false);
+                $('.btn-add').css({ "background": "#383838" });
+                $('#error-msg').css({ "display": "none" });
+
+            }
+        });
+    </script>
+}

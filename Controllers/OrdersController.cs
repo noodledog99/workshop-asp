@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,7 +17,12 @@ namespace workshop_asp.Controllers
         public CartFunc cart = new CartFunc();
         public List<OrderDetail> OrderDetail = new List<OrderDetail>();
         public Order Order = new Order();
+        public Product Product = new Product();
 
+        public OrdersController()
+        {
+            ViewBag.CountCart = cart.CountItemCart();
+        }
         // GET: Order
         public ActionResult Index()
         {
@@ -44,6 +50,7 @@ namespace workshop_asp.Controllers
         public ActionResult ShoppingCart(CartDetail cartDetail)
         {
             var id = Guid.NewGuid().ToString();
+            var prosucts = db.Products.ToList();
             if (cart.GetCartDetail().Any())
             {
                 Order.OrderId = id;
@@ -72,6 +79,11 @@ namespace workshop_asp.Controllers
                         UnitPrice = item.UnitPrice,
                         SubTotal = item.SubTotal,
                     });
+
+                    var ent = db.Set<Product>().Find(item.ProductId.Value);
+                    ent.UnitsInStock = prosucts.FirstOrDefault(it => it.ProductId == item.ProductId).UnitsInStock - item.Quantity;
+                    ent.UnitsOnOrder = prosucts.FirstOrDefault(it => it.ProductId == item.ProductId).UnitsInStock + item.Quantity;
+                    db.SaveChanges();
                 }
 
                 db.OrderDetails.AddRange(OrderDetail);
