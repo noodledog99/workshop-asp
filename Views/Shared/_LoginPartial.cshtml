@@ -1,22 +1,70 @@
 ﻿@using Microsoft.AspNet.Identity
-@if (Request.IsAuthenticated)
-{
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-    {
-    @Html.AntiForgeryToken()
+@using System.Security.Claims;
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
+@*<li class="nav-item-menu">
+        <a class="nav-link" asp-area="">
+            <i class="fas fa-shopping-bag"></i>
+            <div class="cart-number">
+                <span>0</span>
+            </div>
+        </a>
+    </li>*@
+@{
+    if (Request.IsAuthenticated && ((ClaimsIdentity)User.Identity).FindFirst("Role").Value == "1")
+    {
+        @Html.AntiForgeryToken()
+        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
+            @Html.AntiForgeryToken()
+            <ul class="nav navbar-nav navbar-right">
+                <li class="nav-item-menu">
+                    <a class="nav-link" href="@Url.Action("ShoppingCart", "Orders", new { })" asp-area="">
+                        <i class="fas fa-shopping-bag"></i>
+                        <div class="cart-number">
+                            <span>@ViewBag.CountCart</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    @Html.ActionLink("Hello " + ((ClaimsIdentity)User.Identity).FindFirst("FullName").Value, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                </li>
+                <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+            </ul>
+        }
+    }
+    else if (Request.IsAuthenticated && ((ClaimsIdentity)User.Identity).FindFirst("Role").Value == "0")
+    {
+
+        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>@Html.ActionLink("Product", "Index", "Products")</li>
+                <li>@Html.ActionLink("Category", "Index", "Categories")</li>
+                <li>
+                    @Html.ActionLink("Hello " + ((ClaimsIdentity)User.Identity).FindFirst("FullName").Value, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                </li>
+                <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+            </ul>
+        }
+    }
+    else
+    {
+        <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item-menu">
+                <a class="nav-link" href="@Url.Action("ShoppingCart", "Orders", new { })" asp-area="">
+                    <i class="fas fa-shopping-bag"></i>
+                    <div class="cart-number">
+                        <span>@ViewBag.CountCart</span>
+                    </div>
+                </a>
+            </li>
+            <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+            <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        </ul>
     }
 }
-else
-{
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
-}
+
+
+

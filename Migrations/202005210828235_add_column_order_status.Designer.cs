@@ -7,13 +7,13 @@ namespace workshop_asp.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class role : IMigrationMetadata
+    public sealed partial class add_column_order_status : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(role));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(add_column_order_status));
         
         string IMigrationMetadata.Id
         {
-            get { return "202005181556109_role"; }
+            get { return "202005210828235_add_column_order_status"; }
         }
         
         string IMigrationMetadata.Source

@@ -3,16 +3,16 @@ namespace workshop_asp.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initial_2 : DbMigration
+    public partial class add_column_order_status : DbMigration
     {
         public override void Up()
         {
-            AddColumn("dbo.AspNetRoles", "Discriminator", c => c.String(nullable: false, maxLength: 128));
+            AddColumn("dbo.orders", "OrderStatus", c => c.String());
         }
         
         public override void Down()
         {
-            DropColumn("dbo.AspNetRoles", "Discriminator");
+            DropColumn("dbo.orders", "OrderStatus");
         }
     }
 }

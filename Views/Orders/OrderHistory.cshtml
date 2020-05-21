@@ -1,0 +1,35 @@
+﻿@model IEnumerable<workshop_asp.Models.Order>
+@{
+    ViewBag.Title = "OrderHistory";
+    var row = 0;
+}
+
+<div class="container">
+    <h2>Order History</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>#No.</th>
+                <th>Order Id</th>
+                <th>Order Date</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+            <tr>
+                <td>@(++row)</td>
+                <td>@order.OrderId</td>
+                <td>@order.OrderDate</td>
+                <td>@order.Total</td>
+                <td>@order.OrderStatus</td>
+                <td></td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

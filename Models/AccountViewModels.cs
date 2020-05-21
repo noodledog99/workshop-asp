@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace workshop_asp.Models
 {
@@ -51,14 +52,17 @@ namespace workshop_asp.Models
         [Required]
         [Display(Name = "Email")]
         [EmailAddress]
+        [Column("email")]
         public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
+        [Column("password")]
         public string Password { get; set; }
 
         [Display(Name = "Remember me?")]
+        [Column("rememberme")]
         public bool RememberMe { get; set; }
     }
 
@@ -81,13 +85,13 @@ namespace workshop_asp.Models
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [StringLength(15, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        [Display(Name = "FirstName")]
+        [DataType(DataType.Text)]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
         [Required]
-        [StringLength(15, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        [Display(Name = "LastName")]
+        [DataType(DataType.Text)]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
     }
 

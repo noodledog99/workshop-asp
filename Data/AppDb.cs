@@ -19,6 +19,11 @@ namespace workshop_asp.Data
         {
         }
 
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+
         public class ApplicationRole : IdentityRole
         {
             public ApplicationRole() : base() { }
@@ -29,8 +34,14 @@ namespace workshop_asp.Data
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ApplicationUser>().ToTable("users").Property(ur => ur.Id).HasColumnName("UserId");
+            modelBuilder.Entity<IdentityRole>().ToTable("roles").Property(ur => ur.Id).HasColumnName("RoleId"); ;
+            modelBuilder.Entity<IdentityUserRole>().ToTable("userroles").HasKey(k => new { k.RoleId, k.UserId });
+            modelBuilder.Entity<IdentityUserClaim>().ToTable("userclaims");
+            modelBuilder.Entity<IdentityUserLogin>().ToTable("userlogins");
         }
 
-       
+
     }
 }

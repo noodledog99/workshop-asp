@@ -7,13 +7,13 @@ namespace workshop_asp.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class initial_2 : IMigrationMetadata
+    public sealed partial class change_type_column : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(initial_2));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(change_type_column));
         
         string IMigrationMetadata.Id
         {
-            get { return "202005181524014_initial_2"; }
+            get { return "202005210716092_change_type_column"; }
         }
         
         string IMigrationMetadata.Source

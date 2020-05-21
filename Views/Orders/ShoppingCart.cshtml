@@ -1,0 +1,166 @@
+﻿@{
+    ViewBag.Title = "ShoppingCart";
+    var i = 0;
+    decimal total = 0;
+
+}
+<style>
+    .product-img {
+        max-width: 200px;
+    }
+
+        .product-img img {
+            width: 100%;
+        }
+
+    table.tb-shopcart {
+        border: 1px solid #808080;
+    }
+
+    /*th {
+        padding: 15px;
+    }
+
+    td.cart-detail {
+        position: relative;
+        padding: 15px 15px;
+    }*/
+
+    .cart-detail span {
+        position: absolute;
+        top: 0;
+    }
+
+    input, select, textarea {
+        max-width: 500px;
+    }
+
+    .address-card {
+        padding: 14px 20px;
+        height: 425px;
+        border: 1px solid #808080;
+    }
+
+    .address-head {
+        border-bottom: 1px solid;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="container">
+    <h2>ShoppingCart</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="col-md-1">#No.</th>
+                            <th class="col-md-6">Product</th>
+                            <th>Price</th>
+                            <th>Qty</th>
+                            <th>SubTotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            total += item.SubTotal;
+                            <tr>
+                                <td>
+                                    @*<div class="product-img">
+                                            <img src="@item.product.ImagePath" />
+                                        </div>*@
+                                    <span>@(++i)</span>
+                                </td>
+                                <td>
+                                    <span>@item.product.ProductName</span>
+                                </td>
+                                <td>
+                                    <span>@item.UnitPrice</span>
+                                </td>
+                                <td>
+                                    <span>@item.Quantity</span>
+                                </td>
+                                <td>
+                                    <span> @String.Format("{0:n}", @item.SubTotal)</span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4" class="text-right">
+                                <strong>Total</strong>
+                            </td>
+                            <td>
+                                <strong>@String.Format("{0:n}", @total)</strong>
+                                <small>฿</small>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="row col-md-12">
+                <form asp-action="ShoppingCart" method="post">
+                    <div class="address-card">
+                        <div class="address-head">
+                            <h4>Shipping address</h4>
+                        </div>
+                        <div class="address-body">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="FirstName" placeholder="First Name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="LastName" placeholder="Last Name">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <textarea type="text" class="form-control" name="Address" placeholder="Address"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="City" placeholder="City">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="Country" placeholder="Country">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="Province" placeholder="Province">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="number" class="form-control" name="PostalCode" placeholder="Postal Code">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="number" class="form-control" name="Phone" placeholder="Phone">
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-default btn-block">Check Out</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-12">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
