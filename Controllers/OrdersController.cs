@@ -23,6 +23,7 @@ namespace workshop_asp.Controllers
         {
             ViewBag.CountCart = cart.CountItemCart();
         }
+
         // GET: Order
         public ActionResult Index()
         {
@@ -97,6 +98,11 @@ namespace workshop_asp.Controllers
                 return RedirectToAction("OrderHistory", orders);
             }
             return View(cart.GetCartDetail());
+        }
+
+        public ActionResult OrderView()
+        {
+            return View(db.Orders.Include(o => o.user).ToList());
         }
     }
 }

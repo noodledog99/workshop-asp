@@ -1,0 +1,88 @@
+﻿@model IEnumerable<workshop_asp.Models.Product>
+<style>
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0);
+        transition: background 0.5s ease;
+    }
+
+    .img-box:hover .overlay {
+        display: block;
+        background: rgba(0, 0, 0, .7);
+
+    }
+
+    .img-box {
+        max-width: 290px;
+        height: 265px;
+        overflow: hidden;
+        position: relative;
+    }
+
+        .img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: 50% 50%;
+            transition: transform .5s ease;
+            transform: scale(1);
+        }
+
+        .img-box:hover img {
+            transform: scale(1.3);
+        }
+
+
+    .btn-view {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 12px 48px;
+        opacity: 0;
+        transition: opacity .35s ease;
+        text-align: center;
+        color: white;
+        border: solid 2px white;
+        z-index: 1;
+        cursor: pointer;
+        font-weight: 500;
+        font-size: 18px;
+    }
+
+    .img-box:hover .btn-view {
+        opacity: 1;
+    }
+</style>
+
+<div class="product-title">
+    <h1>
+        MECHANICAL KEYBOARD KIT
+    </h1>
+    <p>
+        Build your own mechanical keyboard
+    </p>
+</div>
+<div class="product-item">
+    <div class="container">
+        <div class="row">
+            <div class="product-auto_box">
+                <section class="product-auto-display">
+
+                    @foreach (var item in Model)
+                    {
+                        <div class="img-box">
+                            <img src="@item.ImagePath" style="cursor:pointer">
+                            <div class="overlay"></div>
+                            <div class="btn-view" onclick="location.href='@Url.Action("ProductView", "Products", new { id = @item.ProductId })'"> View </div>
+                        </div>
+                    }
+                </section>
+            </div>
+        </div>
+    </div>
+</div>

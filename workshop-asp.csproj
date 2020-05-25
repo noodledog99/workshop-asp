@@ -296,9 +296,24 @@
     <Content Include="images\banner2.jpg" />
     <Content Include="images\banner.jpg" />
     <Content Include="images\banner3.jpg" />
+    <Content Include="images\UV_print_bg.jpg" />
+    <Content Include="lib\slick\ajax-loader.gif" />
+    <Content Include="lib\slick\fonts\slick.svg" />
+    <Content Include="lib\slick\slick-theme.css" />
+    <Content Include="lib\slick\slick.css" />
+    <Content Include="lib\slick\slick.js" />
+    <Content Include="lib\slick\slick.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="My First Project-fc65b82dffda.json" />
+    <Content Include="lib\slick\config.rb" />
+    <Content Include="lib\slick\fonts\slick.eot" />
+    <Content Include="lib\slick\fonts\slick.ttf" />
+    <Content Include="lib\slick\fonts\slick.woff" />
+    <Content Include="lib\slick\slick-theme.less" />
+    <Content Include="lib\slick\slick-theme.scss" />
+    <Content Include="lib\slick\slick.less" />
+    <Content Include="lib\slick\slick.scss" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -356,6 +371,9 @@
     <Content Include="Views\Orders\ShoppingCart.cshtml" />
     <Content Include="Views\Orders\OrderHistory.cshtml" />
     <Content Include="Views\OrderDetails\OrderDetailPrview.cshtml" />
+    <Content Include="Views\Orders\OrderView.cshtml" />
+    <Content Include="Views\Home\CategoryKeyCapsView.cshtml" />
+    <Content Include="Views\Home\CategoryKeyboardsView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

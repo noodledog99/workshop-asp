@@ -1,0 +1,41 @@
+﻿@model IEnumerable<workshop_asp.Models.Product>
+
+<div class="product-title">
+    <h1>
+        Keycaps
+    </h1>
+    <p>
+        Engineered for the ultimate typing experience
+    </p>
+</div>
+<div class="product-item">
+    <div class="container">
+        <div class="row" style="margin-bottom:15px;">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4">
+                    <div class="product-card">
+                        <div class="card-header">
+                            <div class="product-item-img">
+                                <img src="@item.ImagePath" />
+                                @if (item.UnitsInStock == 0)
+                                {
+                                    <span class="soldout-msg">Sold Out</span>
+                                }
+                            </div>
+                        </div>
+                        <div class="card-center">
+                            <h4>@item.ProductName</h4>
+                            <p>฿@string.Format("{0:n}", @item.UnitPrice)</p>
+                        </div>
+                        <div class="card-bottom">
+                            @Html.ActionLink("Buy", "ProductView", "Products",
+                           new { id = item.ProductId },
+                           new { @class = "btn btn-buy" })
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

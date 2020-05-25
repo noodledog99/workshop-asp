@@ -58,15 +58,9 @@ namespace workshop_asp.Controllers
         // POST: Products/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(string ProductName, string ProductDetail, int CategoryId, HttpPostedFileBase ImagePath, decimal UnitPrice, int UnitsInStock, int UnitsOnOrder)
+        public ActionResult Create(Product modelProduct, HttpPostedFileBase ImagePath)
         {
-            modelProduct.ProductName = ProductName;
-            modelProduct.ProductDetail = ProductDetail;
-            modelProduct.CategoryId = CategoryId;
             modelProduct.ImagePath = ImagePath != null ? UploadFile("storage-image-test", ImagePath) : "";
-            modelProduct.UnitPrice = UnitPrice;
-            modelProduct.UnitsInStock = UnitsInStock;
-            modelProduct.UnitsOnOrder = UnitsOnOrder;
             modelProduct.Created_at = DateTime.Now;
 
             if (ModelState.IsValid)
@@ -99,10 +93,18 @@ namespace workshop_asp.Controllers
         // POST: Products/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductId,ProductName,CategoryId,ImagePath,UnitPrice,UnitsInStock,UnitsOnOrder,Created_at,Updated_at,Deleted_at")] Product product)
+        public ActionResult Edit([Bind(Include = "ProductId,ProductName,CategoryId,ImagePath,UnitPrice,UnitsInStock,UnitsOnOrder,Created_at,Updated_at,Deleted_at")] Product product, HttpPostedFileBase ImageFile)
         {
+            if (ImageFile != null)
+            {
+                var objectName = product.ImagePath.Split(new[] { "/", "%", "2F", "?" }, StringSplitOptions.None);
+                DeleteObject("storage-image-test", $"{objectName[9]}/{objectName[11]}");
+                product.ImagePath = UploadFile("storage-image-test", ImageFile);
+            }
+
             if (ModelState.IsValid)
             {
+                product.Updated_at = DateTime.Now;
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -163,7 +165,6 @@ namespace workshop_asp.Controllers
             return View(product);
         }
 
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -183,6 +184,11 @@ namespace workshop_asp.Controllers
             return storageObject.MediaLink;
         }
 
-
+        private void DeleteObject(string bucketName, string objectName)
+        {
+            var storage = StorageClient.Create();
+            storage.DeleteObject(bucketName, objectName, null);
+            Console.WriteLine($"Deleted {objectName}.");
+        }
     }
 }

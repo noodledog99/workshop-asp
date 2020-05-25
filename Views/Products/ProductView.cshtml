@@ -93,7 +93,7 @@
                     </p>
                 </div>
                 <div class="item-detail">
-                    <p class="product_price">฿@Model.UnitPrice</p>
+                    <p class="product_price" id="x">฿@Model.UnitPrice</p>
                     <input type="hidden" name="UnitPrice" value="@Model.UnitPrice" class="form-control" />
                     <p class="product_amount">Product in Stock: @Model.UnitsInStock</p>
                     <div class="form-group">
@@ -122,6 +122,9 @@
         }
 
         $('#Qty').bind('keyup mouseup', function (e) {
+            
+
+
             if (e.target.value > @Model.UnitsInStock) {
                 $('#btnAdd').attr("disabled", true);
                 $('.btn-add').css({ "background": "#DDDDDD" });

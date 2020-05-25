@@ -10,13 +10,10 @@ namespace workshop_asp.Utils
     {
         public static List<CartDetail> CartDetail;
 
-
         public CartFunc()
         {
 
         }
-
-
 
         public IEnumerable<CartDetail> GetCartDetail()
         {
@@ -39,7 +36,7 @@ namespace workshop_asp.Utils
         {
             CartDetail.Clear();
         }
-
+        
         public string CountItemCart()
         {
             if (CartDetail == null)

@@ -1,0 +1,49 @@
+﻿@model IEnumerable<workshop_asp.Models.Order>
+@{
+    ViewBag.Title = "OrderView";
+    var row = 0;
+}
+<style>
+    .text-norder {
+        font-size: 28px;
+        margin-top: 100px;
+    }
+</style>
+
+<div class="container">
+    <h2>Order History</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>#No.</th>
+                <th>Order Id</th>
+                <th>Order Date</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>@(++row)</td>
+                    <td>@order.OrderId</td>
+                    <td>@order.OrderDate</td>
+                    <td>@order.Total</td>
+                    <td>@order.OrderStatus</td>
+                    <td>
+
+                        <a class="btn btn-default" href="@Url.Action("OrderDetailPrview","OrderDetails",new { id = order.OrderId })">Detail</a>
+                        <button class="btn btn-success">Accept</button>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    @if (!Model.Any())
+    {
+        <p class="text-center text-norder">You haven't placed any orders yet.</p>
+    }
+</div>
